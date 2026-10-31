@@ -1,0 +1,13 @@
+data/
+__pycache__/
+*.pyc
+backups/
+test-results.txt
+.env
+.env.*
+!.env.example
+.vercel/
+public/
+.pytest_cache/
+.idea/
+artifacts/

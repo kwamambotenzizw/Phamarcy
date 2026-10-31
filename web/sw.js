@@ -1,0 +1,4 @@
+const CACHE='thachi-v25';
+self.addEventListener('install',e=>{e.waitUntil(caches.open(CACHE).then(c=>c.addAll(['/','/index.html','/style.css','/app.js','/icons.js','/csv-import.js','/invoice.js','/invoice-details.js','/confirm.js','/idle-session.js','/brand-logo-current.png','/icon.svg','/manifest.webmanifest','/guide.html'])));self.skipWaiting()});
+self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k)))));self.clients.claim()});
+self.addEventListener('fetch',e=>{if(new URL(e.request.url).pathname.startsWith('/api/')||e.request.method!=='GET')return;e.respondWith(fetch(e.request).then(r=>{if(r.ok){let copy=r.clone();caches.open(CACHE).then(c=>c.put(e.request,copy))}return r}).catch(()=>caches.match(e.request).then(r=>r||caches.match('/index.html'))))});
